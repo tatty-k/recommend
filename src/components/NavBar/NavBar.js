@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const NavBar = () => {
+const NavBar = (props) => {
+  let formRef = React.createRef();
+
     return ( 
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <span className="navbar-brand" href="#">Recommend</span>
@@ -27,7 +29,7 @@ const NavBar = () => {
                 ADD GROUP
               </li>
 
-              {/* <!-- Modal --> */}
+              {/* <!-- Create Group form --> */}
               <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                   <div className="modal-content">
@@ -38,16 +40,15 @@ const NavBar = () => {
                       </button>
                     </div>
                     <div className="modal-body">
-                     {/* TODO: add formRef, addGroup and addGroup */}
-                      <form>
+                      {/* Create Group form */}
+                      <form ref={formRef} onSubmit={props.addGroup}>
                         <label>
                           <span>GROUP NAME</span>
                           <input
                             name="name"
                             type="text"
-                            // TODO:
-                            // value={}
-                            // onChange={}
+                            // value={props.state.newGroup.group}
+                            onCreateGroup={props.handleCreateGroup}
                             required
                           />
                           </label>
@@ -56,9 +57,8 @@ const NavBar = () => {
                           <input
                             name="description"
                             type="text"
-                            // TODO:
-                            // value={}
-                            // onChange={}
+                            // value={props.state.newGroup.description}
+                            onCreateGroup={props.handleCreateGroup}
                             required
                           />
                           </label>
@@ -75,12 +75,21 @@ const NavBar = () => {
                             <option value="1">Sally Mea</option>
                           </select>
                         </label>
-                      </form> 
-                    </div>
+                      
+                    
                     <div className="modal-footer">
                       <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" className="btn btn-primary">Save changes</button>
+                      <button 
+                      onClick={props.addGroup}
+                      // type="button" 
+                      className="btn btn-primary"
+                      >
+                        Save changes
+                      </button>
                     </div>
+                    </form>
+                    </div>
+
                   </div>
                 </div>
               </div>

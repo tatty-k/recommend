@@ -1,12 +1,14 @@
 import React from 'react';
-import NavBar from '../../components/NavBar/NavBar.js';
 
-
-const Profile = () => {
+const Profile = (props) => {
     return ( 
         <div>
-        <NavBar/>
-        Hello from Profile
+        Hello from profile
+        {props.groups.map(group => (
+            <div>
+            <div>{group.name}</div>
+            </div>
+        ))}
         </div>
      );
 }
