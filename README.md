@@ -1,3 +1,20 @@
+## Recommend
+
+A social app for sharing your favorite restaurants, books, movies etc. with friends.
+
+## Technology Used
+
+MongoDB, Mongoose, Express, React, Node.js and JavaScript 
+
+## Getting started
+
+## Unsolved Problems
+
+## Future Enhancements
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
