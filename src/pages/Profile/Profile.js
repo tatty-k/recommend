@@ -1,14 +1,12 @@
 import React from 'react';
+import './Profile.css'
 
 const Profile = (props) => {
     return ( 
-        <div>
-        Hello from profile
-        {props.groups.map(group => (
-            <div>
-            <div>{group.name}</div>
-            </div>
-        ))}
+        <div className="groups">
+            {props.groups.map(group => (
+                <div className="group">{group.name}</div>
+            ))}
         </div>
      );
 }

@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './NavBar.css'
 
 
 const NavBar = (props) => {
-  let formRef = React.createRef();
-
     return ( 
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light">
           <span className="navbar-brand" href="#">Recommend</span>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -23,7 +22,6 @@ const NavBar = (props) => {
                 <Link className="nav-link" to={'/group/:id'}>GROUP</Link>
               </li>
               <li className="nav-item">
-
               {/* <!-- Button trigger modal --> */}
               <li className="nav-item" data-toggle="modal" data-target="#exampleModal">
                 ADD GROUP
@@ -41,53 +39,55 @@ const NavBar = (props) => {
                     </div>
                     <div className="modal-body">
                       {/* Create Group form */}
-                      <form ref={formRef} onSubmit={props.addGroup}>
-                        <label>
-                          <span>GROUP NAME</span>
-                          <input
-                            name="name"
-                            type="text"
-                            // value={props.state.newGroup.group}
-                            onCreateGroup={props.handleCreateGroup}
-                            required
-                          />
-                          </label>
-                          <label>
-                          <span>DESCRIPTION</span>
-                          <input
-                            name="description"
-                            type="text"
-                            // value={props.state.newGroup.description}
-                            onCreateGroup={props.handleCreateGroup}
-                            required
-                          />
-                          </label>
-                          <label>
-                          <span>MEMBERS</span>  
-                          {/* TODO: make this a search */}
-                          <select
-                            name="members"
-                            type="text"
-                            // TODO:
-                            // value={}
-                            // onChange={}
-                            > 
-                            <option value="1">Sally Mea</option>
-                          </select>
+
+                    <form onSubmit={props.addGroup}>
+                      <label>
+                        <div>GROUP NAME</div>
+                        <input
+                          name="name"
+                          type="text"
+                          // value={props.newGroup.group}
+                          onChange={props.triggerCreateGroup}
+                          required
+                        />
                         </label>
-                      
+                        <label>
+                        <div>DESCRIPTION</div>
+                        <input
+                          name="description"
+                          type="text"
+                          // value={this.state.newGroup.description}
+                          onChange={props.triggerCreateGroup}
+                          required
+                        />
+                        </label>
+                        <label>
+                        {/* <div>MEMBERS</div>   */}
+                        {/* TODO: make this a search */}
+                        {/* <select
+                          name="members"
+                          type="text"
+                          TODO:
+                          value={}
+                          onChange={}
+                          > 
+                          <option value="1">Sally Mea</option>
+                        </select> */}
+                      </label>
                     
-                    <div className="modal-footer">
-                      <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button 
-                      onClick={props.addGroup}
-                      // type="button" 
-                      className="btn btn-primary"
-                      >
-                        Save changes
-                      </button>
-                    </div>
-                    </form>
+                  
+                  <div>
+                    {/* maybe change to input with type submit */}
+                    <button
+                    onClick={props.addGroup}
+                    //  type="submit" 
+                    // value="Add Group"
+                    className="btn btn-primary"
+                    >
+                    Add Group
+                    </button>
+                  </div>
+                  </form>
                     </div>
 
                   </div>

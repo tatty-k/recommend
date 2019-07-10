@@ -1,0 +1,15 @@
+.groups{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+}
+
+.group {
+    background-color: #1AE9EB;
+    color: #484C58;
+    font-size: 40px;
+    border: 1px solid #484C58;
+    align-items: center;
+    height: 50vh;
+    width: 33vw;
+}
