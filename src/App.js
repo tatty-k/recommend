@@ -57,57 +57,7 @@ class App extends Component{
         <NavBar
         triggerCreateGroup={this.handleCreateGroup}
         addGroup={this.addGroup}
-        />
-        
-        <form onSubmit={this.addGroup}>
-          <label>
-            <div>GROUP NAME</div>
-            <input
-              name="name"
-              type="text"
-              value={this.state.newGroup.group}
-              onChange={this.handleCreateGroup}
-              required
-            />
-            </label>
-            <label>
-            <div>DESCRIPTION</div>
-            <input
-              name="description"
-              type="text"
-              value={this.state.newGroup.description}
-              onChange={this.handleCreateGroup}
-              required
-            />
-            </label>
-            <label>
-            {/* <div>MEMBERS</div>   */}
-            {/* TODO: make this a search */}
-            {/* <select
-              name="members"
-              type="text"
-              TODO:
-              value={}
-              onChange={}
-              > 
-              <option value="1">Sally Mea</option>
-            </select> */}
-          </label>
-        
-      
-      <div>
-        {/* maybe change to input with type submit */}
-        <button
-        onClick={this.addGroup}
-        //  type="submit" 
-        // value="Add Group"
-        className="btn btn-primary"
-        >
-        Add Group
-        </button>
-      </div>
-      </form>
-
+        />        
         <Switch>
           <Route exact path='/' render={ () => 
             <div className="App-landing">
