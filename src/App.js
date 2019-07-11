@@ -8,7 +8,6 @@ import Profile from './pages/Profile/Profile.js';
 import Group from './pages/Group/Group.js';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
-import userServices from './utils/userService';
 import './images/LandingBackground.png';
 import userService from './utils/userService';
 
@@ -44,7 +43,7 @@ class App extends Component{
       },
       body: JSON.stringify(this.state.newGroup)
     })
-    // this.props.history.push('/profile');
+    //this.props.history.push('/profile');
   };
 
   handleCreateGroup = e => {
@@ -55,6 +54,15 @@ class App extends Component{
       newGroup
     });
   };
+  
+  handleLogout = () => {
+    userService.logout();
+    this.setState({user: null});
+  }
+
+  handleSignupOrLogin = () => {
+    this.setState({user: userService.getUser()});
+  }
 
   render() {
     return (
@@ -63,6 +71,7 @@ class App extends Component{
         triggerCreateGroup={this.handleCreateGroup}
         addGroup={this.addGroup}
         user={this.state.user}
+        handleLogout={this.handleLogout}
         />        
         <Switch>
           <Route exact path='/' render={ () => 
@@ -83,12 +92,16 @@ class App extends Component{
               <Group/>
             </div>
           }/>
-          <Route exact path='/login' render={() =>
-            <LoginPage/>
+          <Route exact path='/login' render={({history}) =>
+            <LoginPage
+            history={history}
+            handleSignupOrLogin={this.handleSignupOrLogin}
+            />
           }/>
           <Route exact path='/signup' render={({history}) =>
             <SignupPage
             history={history}
+            handleSignupOrLogin={this.handleSignupOrLogin}
             />
           }/>
         </Switch>

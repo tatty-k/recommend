@@ -22,7 +22,7 @@ const NavBar = (props) => {
                 <Link className="nav-link" to={'/group/:id'}>GROUP</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to={'/group/:id'}>LOGOUT</Link>
+                <Link className="nav-link" to={'/'} onClick={props.handleLogout}>LOGOUT</Link>
               </li>
               
               {/* <!-- Button trigger modal --> */}
