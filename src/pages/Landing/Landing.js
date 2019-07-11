@@ -4,7 +4,7 @@ import './Landing.css';
 const Landing = () => {
     return ( 
         <div>
-        Hello from Landing
+
         </div>
      );
 }

@@ -6,6 +6,11 @@ import NavBar from './components/NavBar/NavBar.js';
 import Landing from './pages/Landing/Landing.js';
 import Profile from './pages/Profile/Profile.js';
 import Group from './pages/Group/Group.js';
+import LoginPage from './pages/LoginPage/LoginPage';
+import SignupPage from './pages/SignupPage/SignupPage';
+import userServices from './utils/userService';
+import './images/LandingBackground.png';
+import userService from './utils/userService';
 
 class App extends Component{
       state = {
@@ -14,10 +19,9 @@ class App extends Component{
         newGroup: {
           name: '',
           description: ''
-        }
+        },
+        user: userService.getUser()
       };
-
-
 
   async componentDidMount() {
     const groups = await index();
@@ -40,6 +44,7 @@ class App extends Component{
       },
       body: JSON.stringify(this.state.newGroup)
     })
+    // this.props.history.push('/profile');
   };
 
   handleCreateGroup = e => {
@@ -57,10 +62,12 @@ class App extends Component{
         <NavBar
         triggerCreateGroup={this.handleCreateGroup}
         addGroup={this.addGroup}
+        user={this.state.user}
         />        
         <Switch>
           <Route exact path='/' render={ () => 
-            <div className="App-landing">
+            <div className="App-landing"
+            >
               <Landing/>
             </div>
           }/>
@@ -75,6 +82,14 @@ class App extends Component{
             <div className="App-group">
               <Group/>
             </div>
+          }/>
+          <Route exact path='/login' render={() =>
+            <LoginPage/>
+          }/>
+          <Route exact path='/signup' render={({history}) =>
+            <SignupPage
+            history={history}
+            />
           }/>
         </Switch>
       </div>
