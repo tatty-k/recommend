@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import { index } from './utils/groupsService';
 import NavBar from './components/NavBar/NavBar.js';
 import Landing from './pages/Landing/Landing.js';
 import Profile from './pages/Profile/Profile.js';
@@ -9,6 +8,7 @@ import Group from './pages/Group/Group.js';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import './images/LandingBackground.png';
+import groupService from './utils/groupsService';
 import userService from './utils/userService';
 
 class App extends Component{
@@ -24,13 +24,13 @@ class App extends Component{
       };
 
   async componentDidMount() {
-    const groups = await index();
+    const groups = await groupService.index();
     const users = await userService.userIndex();
+
     this.setState({
       groups,
       users
     });
-    console.log(users);
   };
   
   addGroup = e => {
@@ -46,16 +46,21 @@ class App extends Component{
     }).then(response => console.log(response))
     this.setState(state => ({
       groups: [...state.groups, state.newGroup],
-      newGroup: { name: '', description: '' }
+      newGroup: { name: '', description: ''}
     }))
     
   };
 
   handleCreateGroup = e => {
-    console.log('handleCreateGroup clicked');
     let newGroup = {...this.state.newGroup};
-    newGroup[e.target.name] = e.target.value;
-    // this.state.newGroup.members.push(e.target.members);
+
+    if (e.target.type !== "checkbox"){
+      newGroup[e.target.name] = e.target.value;
+    } else {
+      if (e.target.checked) {
+      newGroup.members.push(e.target.dataset.userid)
+    }
+  }  
     this.setState({
       newGroup
     });
@@ -69,6 +74,9 @@ class App extends Component{
   handleSignupOrLogin = () => {
     this.setState({user: userService.getUser()});
   }
+
+  // groups: [...state.groups, state.newGroup],
+  // newGroup: { name: '', description: ''}
 
   render() {
     return (
@@ -88,13 +96,16 @@ class App extends Component{
               <Landing/>
             </div>
           }/>
-          <Route exact path='/profile' render={ () => 
-            <div className="App-profile">
-              <Profile
-                groups={this.state.groups}
-              />
-            </div>
-          }/>
+          <Route exact path='/profile' render={ () => (
+            this.state.groups ? 
+              <div className="App-profile">
+                <Profile
+                  groups={this.state.groups}
+                />
+              </div>
+            :
+              <h3>Loading...</h3>
+          )}/>
           <Route exact path='/group/:id' render={ () => 
             <div className="App-group">
               <Group/>

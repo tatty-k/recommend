@@ -4,15 +4,17 @@ module.exports = {
     getAllGroups,
     create
 }
+
 //does this need to be async??
-async function getAllGroups(req, res) {
-    let group = await Group.find({});
-    console.log(group);
-    res.json(group);
+function getAllGroups(req, res) {
+    Group.find({}, function(err, groups) {
+        if (err) throw err;
+
+        res.status(200).json(groups);
+    })
 }
 
 function create(req, res) {
-    console.log('hit create')
    Group.create(req.body, function(err, group){
        if (err) throw err;
 

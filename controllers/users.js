@@ -46,8 +46,10 @@ function createJWT(user){
   );
 }
 
-async function getAllUsers(req, res) {
-  let user = await User.find({});
-  console.log(user);
-  res.json(user);
+function getAllUsers(req, res) {
+  User.find({}, function(err, users) {
+    if (err) throw err;
+
+    res.status(200).json(users)
+  });
 }
