@@ -3,11 +3,13 @@ import './Profile.css'
 
 const Profile = (props) => {
     return ( 
-        <div className="groups">
-            {props.groups.map(group => (
-                <div className="group">{group.name}</div>
-            ))}
-        </div>
+      
+    <div className="grid-container">
+        {props.groups.map((group, idx) => (
+            <div className={`grid-item item${idx + 1}`} >{group.name}</div>
+        ))}
+    </div>
+
      );
 }
  

@@ -4,7 +4,8 @@ const SECRET = process.env.SECRET;
 
 module.exports = {
     signup,
-    login
+    login,
+    getAllUsers
 };
 
 async function login(req, res){
@@ -43,4 +44,10 @@ function createJWT(user){
     SECRET,
     {expiresIn: '24h'}
   );
+}
+
+async function getAllUsers(req, res) {
+  let user = await User.find({});
+  console.log(user);
+  res.json(user);
 }

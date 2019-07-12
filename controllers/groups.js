@@ -14,6 +14,8 @@ async function getAllGroups(req, res) {
 function create(req, res) {
     console.log('hit create')
    Group.create(req.body, function(err, group){
-        console.log(group);
+       if (err) throw err;
+
+        res.status(200).json(group)
     })
 }

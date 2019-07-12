@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import { index } from './utils/groupsService'
+import { index } from './utils/groupsService';
 import NavBar from './components/NavBar/NavBar.js';
 import Landing from './pages/Landing/Landing.js';
 import Profile from './pages/Profile/Profile.js';
@@ -14,25 +14,26 @@ import userService from './utils/userService';
 class App extends Component{
       state = {
         groups: [],
-        // users: []
+        users: [],
         newGroup: {
           name: '',
-          description: ''
+          description: '',
+          members: []
         },
         user: userService.getUser()
       };
 
   async componentDidMount() {
     const groups = await index();
+    const users = await userService.userIndex();
     this.setState({
-      groups
+      groups,
+      users
     });
-    console.log(groups);
-    console.log(this.state);
+    console.log(users);
   };
   
   addGroup = e => {
-    console.log("add group clicked")
     e.preventDefault();
     // TODO: move this to file that hold index() -above
     // does this need to be asynchronouse
@@ -42,14 +43,19 @@ class App extends Component{
         "Content-Type": "application/json"
       },
       body: JSON.stringify(this.state.newGroup)
-    })
-    //this.props.history.push('/profile');
+    }).then(response => console.log(response))
+    this.setState(state => ({
+      groups: [...state.groups, state.newGroup],
+      newGroup: { name: '', description: '' }
+    }))
+    
   };
 
   handleCreateGroup = e => {
     console.log('handleCreateGroup clicked');
     let newGroup = {...this.state.newGroup};
     newGroup[e.target.name] = e.target.value;
+    // this.state.newGroup.members.push(e.target.members);
     this.setState({
       newGroup
     });
@@ -72,6 +78,8 @@ class App extends Component{
         addGroup={this.addGroup}
         user={this.state.user}
         handleLogout={this.handleLogout}
+        newGroup={this.state.newGroup}
+        users={this.state.users}
         />        
         <Switch>
           <Route exact path='/' render={ () => 

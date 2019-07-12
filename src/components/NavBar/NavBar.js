@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css'
+import { tsPropertySignature } from '@babel/types';
 
 
 const NavBar = (props) => {
@@ -34,12 +35,12 @@ const NavBar = (props) => {
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Add New Group</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add New Group</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
                     <div class="modal-body">
 
                   {/* Create Group form */}
@@ -51,6 +52,7 @@ const NavBar = (props) => {
                             name="name"
                             type="text"
                             onChange={props.triggerCreateGroup}
+                            value={props.newGroup.name}
                             required
                           />
                           </label>
@@ -60,29 +62,29 @@ const NavBar = (props) => {
                             name="description"
                             type="text"
                             onChange={props.triggerCreateGroup}
+                            value={props.newGroup.description}
                             required
                           />
                           </label>
                           <label>
-                          {/* <div>MEMBERS</div>   */}
-                          {/* TODO: make this a search */}
-                          {/* <select
+                          <div>MEMBERS</div>  
+                          <select 
                             name="members"
                             type="text"
-                            TODO:
-                            value={}
-                            onChange={}
+                            onChange={props.triggerCreateGroup}
                             > 
-                            <option value="1">Sally Mea</option>
-                          </select> */}
-                        </label>
+                            { props.users.map((user, idx) => (
+                            <option>{user.name}</option>
+                            ))}
+                          </select>
+                          </label>  
                         <div>
-                          {/* maybe change to input with type submit */}
                           <input
                           onClick={props.addGroup}
                           type="submit" 
                           value="Add Group"
                           className="btn btn-primary"
+                          data-dismiss="modal"
                           />
                         </div>
                         </form>
