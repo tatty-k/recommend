@@ -72,7 +72,7 @@ const NavBar = (props) => {
                             type="checkbox"
                             onChange={props.triggerCreateGroup}
                             data-userid={user._id}
-                            // checked={this.props.newGroup.members.includes(user.email)}
+                            checked={props.newGroup.members.includes(user._id)}
                           />
                           </label> 
                           ))} 
@@ -86,6 +86,7 @@ const NavBar = (props) => {
                           />
                         </div>
                         </form>
+                        <pre>{JSON.stringify(props.newGroup, null, 4)}</pre>
                     </div>
                     <div className="modal-footer">
                       <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

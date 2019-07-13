@@ -40,25 +40,31 @@ class App extends Component{
     fetch('/api/groups', {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json" 
       },
       body: JSON.stringify(this.state.newGroup)
     }).then(response => console.log(response))
     this.setState(state => ({
       groups: [...state.groups, state.newGroup],
-      newGroup: { name: '', description: ''}
+      newGroup: { name: '', description: '', members:[]}
     }))
     
   };
 
   handleCreateGroup = e => {
     let newGroup = {...this.state.newGroup};
-
+    const userId = e.target.dataset.userid
     if (e.target.type !== "checkbox"){
       newGroup[e.target.name] = e.target.value;
     } else {
-      if (e.target.checked) {
-      newGroup.members.push(e.target.dataset.userid)
+      if (e.target.checked && !newGroup.members.includes(userId)) {
+      newGroup.members.push(userId)
+      console.log("userId",userId)
+    } else {
+      if (!e.target.checked) {
+        const index = newGroup.members.indexOf(userId);
+        newGroup.members.splice(index,1);
+      }
     }
   }  
     this.setState({
@@ -74,9 +80,6 @@ class App extends Component{
   handleSignupOrLogin = () => {
     this.setState({user: userService.getUser()});
   }
-
-  // groups: [...state.groups, state.newGroup],
-  // newGroup: { name: '', description: ''}
 
   render() {
     return (
