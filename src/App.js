@@ -81,6 +81,17 @@ class App extends Component{
     this.setState({user: userService.getUser()});
   }
 
+  handleDeleteGroup = (group) => {
+    console.log("group in App", group)
+    groupService.deleteGroup(group)
+    .then(result => {
+      const groups = this.state.groups.filter(g => group !== g._id);
+      this.setState({groups});
+      }
+    )
+    console.log("group in App", group);
+  }
+
   render() {
     return (
       <div className="App">
@@ -104,6 +115,7 @@ class App extends Component{
               <div className="App-profile">
                 <Profile
                   groups={this.state.groups}
+                  handleDeleteGroup={this.handleDeleteGroup}
                 />
               </div>
             :

@@ -11,6 +11,28 @@ async function index() {
     return await fetch(BASE_URL, options).then(res => res.json());
   }
 
+async function deleteGroup(groupId) {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + tokenService.getToken()
+      },
+      body: JSON.stringify({id: groupId})
+    };
+    return await fetch(BASE_URL, options)
+    .then(res => res.json())
+    .then(json => {
+      if (json.deleted === true) {
+        return true;
+      }
+      return false;
+      // console.log("json", json) 
+    });
+  }
+
+
+
 // function create(group) {
 //     const options = {
 //       method: 'POST',
@@ -24,5 +46,5 @@ async function index() {
 
 export default { 
     index,
-
+    deleteGroup
 }
