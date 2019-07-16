@@ -11,11 +11,13 @@ import './images/LandingBackground.png';
 import groupService from './utils/groupsService';
 import userService from './utils/userService';
 import tokenService from './utils/tokenService';
+import UpdateGroup from './components/UpdateGroup/UpdateGroup';
 
 class App extends Component{
       state = {
         groups: [],
         users: [],
+        selectedGroupIdx: "",
         newGroup: {
           name: '',
           description: '',
@@ -101,7 +103,7 @@ class App extends Component{
     this.setState(state => ({
       groups: [...updateGroups]
     }))
-    
+    this.props.history.push('/profile');
   };
 
   handleUpdateGroup = (e, groupIdx) => {
@@ -112,13 +114,16 @@ class App extends Component{
     const userId = e.target.dataset.userid
 
     if (e.target.type !== "checkbox"){
+      console.log(e.target.type);
       groupCopy[e.target.name] = e.target.value;
     } else {
       if (e.target.checked && !groupCopy.members.includes(userId)) {
+        console.log(e.target.checked);
         groupCopy.members.push(userId)
         console.log("userId",userId)
       } else {
         if (!e.target.checked) {
+          console.log(e.target.checked);
           const index = groupCopy.members.indexOf(userId);
           groupCopy.members.splice(index,1);
         }
@@ -126,7 +131,8 @@ class App extends Component{
     }
 
     this.setState({ groups: groupsCopy });
-
+    // this.setState({selectedGroupIdx: idx})
+    
     // existing code below
     // let newGroup = {...this.state.newGroup};
     // const userId = e.target.dataset.userid
@@ -216,6 +222,18 @@ class App extends Component{
             <SignupPage
             history={history}
             handleSignupOrLogin={this.handleSignupOrLogin}
+            />
+          }/>
+          <Route path='/update-group/:id' render={(props) =>
+            <UpdateGroup
+              {...props}
+              handleUpdateGroup={this.handleUpdateGroup}
+              updateGroup={this.updateGroup}
+              user={this.state.user}
+              newGroup={this.state.newGroup}
+              users={this.state.users}
+              groups={this.state.groups}
+              // idx={idx}
             />
           }/>
         </Switch>

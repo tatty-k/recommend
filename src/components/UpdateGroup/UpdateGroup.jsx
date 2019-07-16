@@ -1,8 +1,10 @@
 import React from 'react';
 
 function UpdateGroup(props){
+    console.log(props.groups)
+    console.log(props.match.params.id)
     return (              
- 
+        
         <div>
 
             <form onSubmit={(e) => props.updateGroup(e, props.idx)}>
@@ -11,8 +13,8 @@ function UpdateGroup(props){
                 <input
                     name="name"
                     type="text"
-                    onChange={(e) => props.handleUpdateGroup(e, props.idx) }
-                    value={props.group.name}
+                    onChange={(e) => props.handleUpdateGroup(e, props.match.params.id) }
+                    value={props.groups[props.match.params.id].name}
                     required
                 />
                 </label>
@@ -21,8 +23,8 @@ function UpdateGroup(props){
                 <input
                     name="description"
                     type="text"
-                    onChange={(e) => props.handleUpdateGroup(e, props.idx) }
-                    value={props.group.description}
+                    onChange={(e) => props.handleUpdateGroup(e, props.match.params.id) }
+                    value={props.groups[props.match.params.id].description}
                     required
                 />
                 </label>
@@ -32,15 +34,15 @@ function UpdateGroup(props){
                 <input 
                     name={user.email}
                     type="checkbox"
-                    onChange={(e) => props.handleUpdateGroup(e, props.idx) }
+                    onChange={(e) => props.handleUpdateGroup(e, props.match.params.id) }
                     data-userid={user._id}
-                    checked={props.group.members.includes(user._id)}
+                    checked={props.groups[props.match.params.id].members.includes(user._id)}
                 />
                 </label> 
                 ))} 
             <div>
                 <input
-                    onClick={(e) => props.updateGroup(e, props.idx)}
+                    onClick={(e) => props.updateGroup(e, props.match.params.id)}
                     type="submit" 
                     value="Update Group"
                     className="btn btn-primary"

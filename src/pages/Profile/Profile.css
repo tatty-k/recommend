@@ -1,42 +1,43 @@
-.grid-container {
+.profile-grid-container {
     display: grid;                                                
     grid-auto-rows: 50px;                                         
     grid-gap: 10px;                                               
     grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));   
   }
   
-  .item1 {
+  .profile-item1 {
     grid-row: span 5;
     background-color: #1CFFD7;
   }
 
-  .item2 {
+  .profile-item2 {
     grid-row: span 6;
     background-color: #1AE9EB;
   }
   
-  .item3 {
+  .profile-item3 {
     grid-row: span 5;
     background-color: #23D5FF;
   }
 
-  .item4 {
+  .profile-item4 {
     grid-row: span 5;
     background-color: #42BBFF;
   }
 
-  .item5 {
+  .profile-item5 {
     grid-row: span 5;
     background-color: #3DFF99;
   }
 
-  .item6 {
+  .profile-item6 {
     grid-row: span 6;
     background-color: #0278FF;
   }
   
-  .grid-item {
-    display: flex;
+  .profile-grid-item {
+    display: grid;
+    grid-auto-rows: 1fr;
     align-items: center;
     justify-content: center;
     font-size: 1.3em;
@@ -44,9 +45,19 @@
     color: black;
   }
 
+  .profile-group-name{
+    grid-row: span 2;
+  }
+
+  .profile-btn-container{
+    grid-row: span 1;
+    display: flex;
+    justify-content: space-between;
+  }
+
 @media only screen and (max-width: 320px){
-  .grid-container {
-    display: grid;                                                
+  .profile-grid-container {
+    display: grid;                                             
     grid-auto-rows: 50px;                                         
     grid-gap: 10px;                                              
     grid-template-columns: 1fr;  
