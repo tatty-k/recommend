@@ -30,12 +30,13 @@ function getUserGroups(req, res) {
 }
 
 function create(req, res) {
-    
-   Group.create(req.body, function(err, group){
+    console.log("req.body",req.body);
+   const group = new Group(req.body);
+   group.members.push(req.user._id);
+   group.save(function(err){
        if (err) throw err;
-
-        res.json(group)
-    })
+       res.json(group);
+   });
 }
 
 function deleteGroup(req, res) {

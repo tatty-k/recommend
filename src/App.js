@@ -36,18 +36,12 @@ class App extends Component{
     });
   };
   
-  addGroup = e => {
+  addGroup = (e, newGroup) => {
     e.preventDefault();
+    newGroup=this.state.newGroup
+    groupService.create(newGroup);
     // TODO: move this to file that hold index() -above
     // does this need to be asynchronouse
-    fetch('/api/groups', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json", 
-        'Authorization': 'Bearer ' + tokenService.getToken()
-      },
-      body: JSON.stringify(this.state.newGroup)
-    }).then(response => console.log(response))
     this.setState(state => ({
       groups: [...state.groups, state.newGroup],
       newGroup: { name: '', description: '', members:[]}

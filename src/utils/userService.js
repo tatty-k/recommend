@@ -42,8 +42,8 @@ function logout() {
   tokenService.removeToken();
 }
 
-async function userIndex(){
-    return await fetch(BASE_URL + 'getUsers', {mode:'cors'}).then(res => {
+function userIndex(){
+    return fetch(BASE_URL + 'getUsers', {mode:'cors'}).then(res => {
         console.log(res)
         return res.json()
     });
