@@ -7,5 +7,7 @@ router.get('/groups', groupsCtrl.getUserGroups);
 router.post('/groups', groupsCtrl.create);
 router.delete('/groups', groupsCtrl.deleteGroup);
 router.put('/groups', groupsCtrl.updateGroup);
+router.get('/group', groupsCtrl.getRecs);
+router.post('/groups/:id', groupsCtrl.createRec);
 
 module.exports = router;

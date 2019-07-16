@@ -5,7 +5,9 @@ module.exports = {
     getUserGroups,
     create,
     deleteGroup,
-    updateGroup
+    updateGroup,
+    getRecs,
+    createRec
 }
 
 // function getAllGroups(req, res) {
@@ -30,7 +32,6 @@ function getUserGroups(req, res) {
 }
 
 function create(req, res) {
-    console.log("req.body",req.body);
    const group = new Group(req.body);
    group.members.push(req.user._id);
    group.save(function(err){
@@ -51,8 +52,6 @@ function deleteGroup(req, res) {
 
 
 function updateGroup(req, res) {
-    console.log("req.body in groups cont.",req.body._id);
-    console.log("groups.",req.body);
     Group.findById(req.body._id, function(err, group){
          group.name = req.body.name;
          group.description = req.body.description;
@@ -66,3 +65,22 @@ function updateGroup(req, res) {
         res.json()
     })
 }
+
+function getRecs(req, res) {
+    Group.findById(req.body._id, function(err, group){
+        if (err) throw err;
+
+        res.json(group.recs);
+    })
+}
+
+function createRec(req, res) {
+    Group.findById(req.body.groupId, function(err, group){
+        group.recs.push(req.body);
+        group.save(function(err){
+            if (err) throw err;
+            console.log(group.recs)
+        res.json(group.recs);
+        })
+    })
+ }

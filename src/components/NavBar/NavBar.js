@@ -77,7 +77,7 @@ const NavBar = (props) => {
                           />
                         </div>
                         </form>
-                        <pre>{JSON.stringify(props.newGroup, null, 4)}</pre>
+                        {/* <pre>{JSON.stringify(props.newGroup, null, 4)}</pre> */}
                     </div>
                     <div className="modal-footer">
                       <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

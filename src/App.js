@@ -40,8 +40,6 @@ class App extends Component{
     e.preventDefault();
     newGroup=this.state.newGroup
     groupService.create(newGroup);
-    // TODO: move this to file that hold index() -above
-    // does this need to be asynchronouse
     this.setState(state => ({
       groups: [...state.groups, state.newGroup],
       newGroup: { name: '', description: '', members:[]}
@@ -87,13 +85,16 @@ class App extends Component{
     }).then(response => console.log(response))
       const updateGroups = []
       groupsCopy.forEach( g => {
-        if (g.id!==groupsCopy[groupIdx].id) {
+        if (g._id!==groupsCopy[groupIdx]._id) {
+          console.log("g",g)
+          console.log("groupsCopy[groupIdx]", groupsCopy[groupIdx])
             updateGroups.push(g)
           } else {
             updateGroups.push(groupCopy)
           }
-        }  
+        } 
       )
+      console.log(updateGroups) 
     this.setState(state => ({
       groups: [...updateGroups]
     }))
@@ -125,37 +126,8 @@ class App extends Component{
     }
 
     this.setState({ groups: groupsCopy });
-    // this.setState({selectedGroupIdx: idx})
-    
-    // existing code below
-    // let newGroup = {...this.state.newGroup};
-    // const userId = e.target.dataset.userid
-    // if (e.target.type !== "checkbox"){
-    //   newGroup[e.target.name] = e.target.value;
-    // } else {
-    //   if (e.target.checked && !newGroup.members.includes(userId)) {
-    //   newGroup.members.push(userId)
-    //   console.log("userId",userId)
-    //   } else {
-    //     if (!e.target.checked) {
-    //       const index = newGroup.members.indexOf(userId);
-    //       newGroup.members.splice(index,1);
-    //     }
-    //   }
-    // }
-    // this.setState({
-    //   newGroup
-    // });
-  };
-  
-  handleLogout = () => {
-    userService.logout();
-    this.setState({user: null});
-  }
 
-  handleSignupOrLogin = () => {
-    this.setState({user: userService.getUser()});
-  }
+  };
 
   handleDeleteGroup = (group) => {
     groupService.deleteGroup(group)
@@ -164,7 +136,15 @@ class App extends Component{
       this.setState({groups});
       }
     )
-    console.log("group in App", group);
+  }
+  
+  handleLogout = () => {
+    userService.logout();
+    this.setState({user: null});
+  }
+
+  handleSignupOrLogin = () => {
+    this.setState({user: userService.getUser()});
   }
 
   render() {
@@ -201,9 +181,12 @@ class App extends Component{
             :
               <h3>Loading...</h3>
           )}/>
-          <Route exact path='/group/:id' render={ () => 
+          <Route exact path='/group/:id' render={ (props) => 
             <div className="App-group">
-              <Group/>
+              <Group
+              {...props}
+              groups={this.state.groups}
+              />
             </div>
           }/>
           <Route exact path='/login' render={({history}) =>
@@ -227,7 +210,6 @@ class App extends Component{
               newGroup={this.state.newGroup}
               users={this.state.users}
               groups={this.state.groups}
-              // idx={idx}
             />
           }/>
         </Switch>

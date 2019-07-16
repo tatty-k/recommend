@@ -43,10 +43,7 @@ function logout() {
 }
 
 function userIndex(){
-    return fetch(BASE_URL + 'getUsers', {mode:'cors'}).then(res => {
-        console.log(res)
-        return res.json()
-    });
+    return fetch(BASE_URL + 'getUsers').then(res => res.json());
 }
 
 export default {
