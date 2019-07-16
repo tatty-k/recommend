@@ -4,25 +4,16 @@ import './NavBar.css'
 
 const NavBar = (props) => {
   let nav = props.user ?    
-        <div className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <span className="navbar-brand" href="#">Welcome {props.user.name}</span>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className="nav-link" to={'/'}>LANDING</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={'/profile'}>PROFILE</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={'/group/:id'}>GROUP</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={'/'} onClick={props.handleLogout}>LOGOUT</Link>
-              </li>
+          <div className="navbar-nav collapse navbar-collapse" id="navbarNav">
+            <Link className="nav-item nav-link" to={'/'}>LANDING</Link>
+            <Link className="nav-item nav-link" to={'/profile'}>PROFILE</Link>
+            <Link className="nav-item nav-link" to={'/group/:id'}>GROUP</Link>
+            <Link className="nav-item nav-link" to={'/'} onClick={props.handleLogout}>LOGOUT</Link> 
               
               {/* <!-- Button trigger modal --> */}
               <li className="nav-item" data-toggle="modal" data-target="#exampleModal">
@@ -94,13 +85,12 @@ const NavBar = (props) => {
                   </div>
                 </div>
               </div>
-            </ul>
           </div>
-        </div>
+        </nav>
 
               :
 
-        <div className="navbar navbar-expand-lg navbar-light">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <span className="navbar-brand" href="#">Recommend</span>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -115,7 +105,7 @@ const NavBar = (props) => {
               </li>
             </ul>
           </div>  
-        </div>
+        </nav>
 
     return ( 
       <div className='NavBar'>

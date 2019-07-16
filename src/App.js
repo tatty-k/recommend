@@ -10,6 +10,7 @@ import SignupPage from './pages/SignupPage/SignupPage';
 import './images/LandingBackground.png';
 import groupService from './utils/groupsService';
 import userService from './utils/userService';
+import tokenService from './utils/tokenService';
 
 class App extends Component{
       state = {
@@ -40,7 +41,8 @@ class App extends Component{
     fetch('/api/groups', {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json" 
+        "Content-Type": "application/json", 
+        'Authorization': 'Bearer ' + tokenService.getToken()
       },
       body: JSON.stringify(this.state.newGroup)
     }).then(response => console.log(response))
@@ -53,7 +55,7 @@ class App extends Component{
 
   handleCreateGroup = e => {
     let newGroup = {...this.state.newGroup};
-    const userId = e.target.dataset.userid
+    const userId = e.target.dataset.userid;
     if (e.target.type !== "checkbox"){
       newGroup[e.target.name] = e.target.value;
     } else {
@@ -71,6 +73,80 @@ class App extends Component{
       newGroup
     });
   };
+
+  updateGroup = (e, groupIdx) => {
+    let groupsCopy = this.state.groups;
+    let groupCopy = groupsCopy[groupIdx];
+    console.log("groupCopy", groupCopy)
+    e.preventDefault();
+    // TODO: move this to file that hold index() -above
+    // does this need to be asynchronouse
+    fetch('/api/groups/', {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + tokenService.getToken() 
+      },
+      body: JSON.stringify(groupCopy)
+    }).then(response => console.log(response))
+      const updateGroups = []
+      groupsCopy.forEach( g => {
+        if (g.id!==groupsCopy[groupIdx].id) {
+            updateGroups.push(g)
+          } else {
+            updateGroups.push(groupCopy)
+          }
+        }  
+      )
+    this.setState(state => ({
+      groups: [...updateGroups]
+    }))
+    
+  };
+
+  handleUpdateGroup = (e, groupIdx) => {
+    console.log(groupIdx);
+    
+    let groupsCopy = this.state.groups;
+    let groupCopy = groupsCopy[groupIdx];
+    const userId = e.target.dataset.userid
+
+    if (e.target.type !== "checkbox"){
+      groupCopy[e.target.name] = e.target.value;
+    } else {
+      if (e.target.checked && !groupCopy.members.includes(userId)) {
+        groupCopy.members.push(userId)
+        console.log("userId",userId)
+      } else {
+        if (!e.target.checked) {
+          const index = groupCopy.members.indexOf(userId);
+          groupCopy.members.splice(index,1);
+        }
+      }
+    }
+
+    this.setState({ groups: groupsCopy });
+
+    // existing code below
+    // let newGroup = {...this.state.newGroup};
+    // const userId = e.target.dataset.userid
+    // if (e.target.type !== "checkbox"){
+    //   newGroup[e.target.name] = e.target.value;
+    // } else {
+    //   if (e.target.checked && !newGroup.members.includes(userId)) {
+    //   newGroup.members.push(userId)
+    //   console.log("userId",userId)
+    //   } else {
+    //     if (!e.target.checked) {
+    //       const index = newGroup.members.indexOf(userId);
+    //       newGroup.members.splice(index,1);
+    //     }
+    //   }
+    // }
+    // this.setState({
+    //   newGroup
+    // });
+  };
   
   handleLogout = () => {
     userService.logout();
@@ -82,7 +158,6 @@ class App extends Component{
   }
 
   handleDeleteGroup = (group) => {
-    console.log("group in App", group)
     groupService.deleteGroup(group)
     .then(result => {
       const groups = this.state.groups.filter(g => group !== g._id);
@@ -103,7 +178,7 @@ class App extends Component{
         newGroup={this.state.newGroup}
         users={this.state.users}
         />        
-        <Switch>
+        <Switch>  
           <Route exact path='/' render={ () => 
             <div className="App-landing"
             >
@@ -113,9 +188,14 @@ class App extends Component{
           <Route exact path='/profile' render={ () => (
             this.state.groups ? 
               <div className="App-profile">
-                <Profile
+                <Profile 
                   groups={this.state.groups}
                   handleDeleteGroup={this.handleDeleteGroup}
+                  updateGroup={this.updateGroup}
+                  handleUpdateGroup={this.handleUpdateGroup}
+                  user={this.state.user}
+                  newGroup={this.state.newGroup}
+                  users={this.state.users}
                 />
               </div>
             :

@@ -1,10 +1,12 @@
 import tokenService from './tokenService';
+
 const BASE_URL = '/api/groups';
 
 async function index() {
     const options = {
       method: 'GET',
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + tokenService.getToken()
       }
     };

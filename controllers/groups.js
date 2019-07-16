@@ -4,7 +4,8 @@ const User = require('../models/user');
 module.exports = {
     getUserGroups,
     create,
-    deleteGroup
+    deleteGroup,
+    updateGroup
 }
 
 // function getAllGroups(req, res) {
@@ -24,7 +25,7 @@ function getUserGroups(req, res) {
     Group.find({ members : req.user._id}).exec(function(err, groups) {
         if (err) throw err;
 
-        res.status(200).json(groups);
+        res.json(groups);
     });
 }
 
@@ -33,7 +34,7 @@ function create(req, res) {
    Group.create(req.body, function(err, group){
        if (err) throw err;
 
-        res.status(200).json(group)
+        res.json(group)
     })
 }
 
@@ -44,5 +45,23 @@ function deleteGroup(req, res) {
     Group.findByIdAndRemove(req.body.id, function(err){
 
         res.json({deleted:true})
+    })
+}
+
+
+function updateGroup(req, res) {
+    console.log("req.body in groups cont.",req.body._id);
+    console.log("groups.",req.body);
+    Group.findById(req.body._id, function(err, group){
+         group.name = req.body.name;
+         group.description = req.body.description;
+         group.members= req.body.members;
+
+         group.save(function(err){
+            if(err) {
+                console.error('ERROR!');
+            }
+         })
+        res.json()
     })
 }
