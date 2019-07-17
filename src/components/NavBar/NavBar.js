@@ -10,13 +10,11 @@ const NavBar = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="navbar-nav collapse navbar-collapse" id="navbarNav">
-            <Link className="nav-item nav-link" to={'/'}>LANDING</Link>
             <Link className="nav-item nav-link" to={'/profile'}>PROFILE</Link>
-            <Link className="nav-item nav-link" to={'/group/:id'}>GROUP</Link>
             <Link className="nav-item nav-link" to={'/'} onClick={props.handleLogout}>LOGOUT</Link> 
               
               {/* <!-- Button trigger modal --> */}
-              <li className="nav-item" data-toggle="modal" data-target="#exampleModal">
+              <li className="nav-item nav-link" data-toggle="modal" data-target="#exampleModal">
               ADD GROUP
               </li>
 

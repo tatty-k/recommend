@@ -8,7 +8,7 @@ const Profile = (props) => {
       
         <div className="profile-grid-container">
             {props.groups.map((group, idx) => (
-                <div className={`profile-grid-item profile-item${(idx%6)+1}`} >
+                <div key={idx} className={`profile-grid-item profile-item${(idx%6)+1}`} >
                     <div className="profile-group-name">
                     <Link
                         className={`profile-grid-item profile-item${(idx%6)+1}`}
@@ -16,13 +16,13 @@ const Profile = (props) => {
                     </div>
                     <div className= "profile-btn-container">
                         <button 
-                        className="btn btn-light"
+                        className="btn btn-light group-btn"
                         onClick={()=> props.handleDeleteGroup(group._id)}
                         >
                             DELETE
                         </button>
                         <Link
-                        className="btn btn-light"
+                        className="btn btn-light group-btn"
                         to={`/update-group/${idx}`}>EDIT</Link>
                     </div>
                 </div>            

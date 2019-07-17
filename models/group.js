@@ -8,7 +8,7 @@ let recSchema = new Schema({
     },
     recDetails:{
         type: String,
-        required: true,
+        // required: true,
     }
 }) 
 

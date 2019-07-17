@@ -51,8 +51,10 @@
 
   .profile-btn-container{
     grid-row: span 1;
-    display: flex;
-    justify-content: space-between;
+  }
+
+  .group-btn {
+    margin: 20px;
   }
 
 @media only screen and (max-width: 320px){

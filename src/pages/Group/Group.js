@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import groupService from '../../utils/groupsService';
+import './Group.css'
 
 class Group extends Component {
     state = { 
@@ -12,7 +13,10 @@ class Group extends Component {
 
 
     componentDidMount = () => {
-        let loadedRecs = this.props.groups[this.props.match.params.id].recs;
+        let loadedRecs = this.props.groups[this.props.match.params.id].recs || null;
+        // console.log(this.props.groups[this.props.match.params.id]);
+        // groups array is empty
+        // try componentDidUpdate with guard operator 
 
         this.setState({
            recommendations: loadedRecs
@@ -26,19 +30,11 @@ class Group extends Component {
     let newRecCopy = this.state.newRec;
     newRecCopy.groupId = this.props.groups[this.props.match.params.id]._id;
     
-    //TODO make this function
     let rec = await groupService.createRec(newRecCopy);
 
-    // let recommendations = this.state.recommendations;
-    // recommendations.push(rec);
-    
-    // console.log(recommendations);
-
     this.setState({
-    //   need to "pass groups up"...but how
-    //   groups: [...state.groups, state.newGroup],
         recommendations: rec,
-        newRec: { groupId: null, recTitle: '', recDetails: ''}
+        newRec: { groupId: null, recTitle: 'recommend something!', recDetails: ''}
     })
   };
 
@@ -51,42 +47,51 @@ class Group extends Component {
 
     render() { 
         return ( 
+            this.state.recommendations ?
             <div>
-            <form onSubmit={this.addRec}>
-            <label>
-                <div>RECOMMENDATION TITLE</div>
-                <input
-                    name="recTitle"
-                    type="text"
-                    onChange={ this.handleChange }
-                    value={this.state.newRec.recTitle}
-                    required
-                />
-                </label>
-                <label>
-                <div>RECOMMENDATION DETAILS</div>
-                <input
-                    name="recDetails"
-                    type="text"
-                    onChange={this.handleChange}
-                    value={this.state.newRec.recDetails}
-                    required
-                />
-                </label>
-                <input
-                    onClick={this.addRec}
-                    type="submit" 
-                    value="ADD RECOMMENDATION"
-                    className="btn btn-primary"
-                    data-dismiss="modal"
-                />
+            <form className="group-form form-inline" onSubmit={this.addRec}>
+                <label className="form-group mb-2">
+                    {/* <div>RECOMMENDATION TITLE</div> */}
+                    <input
+                        className="group-form-input"
+                        name="recTitle"
+                        type="text"
+                        onChange={ this.handleChange }
+                        value={this.state.newRec.recTitle}
+                        required
+                    />
+                    </label>
+                    {/* <label>
+                    <div>RECOMMENDATION DETAILS</div>
+                    <input
+                        name="recDetails"
+                        type="text"
+                        onChange={this.handleChange}
+                        value={this.state.newRec.recDetails}
+                        required
+                    />
+                    </label> */}
+                    <input
+                        className="group-form-submit"
+                        onClick={this.addRec}
+                        type="submit" 
+                        value="ADD"
+                        className="btn btn-light"
+                        data-dismiss="modal"
+                    />
             </form>
         {/* <pre>{JSON.stringify(props.group, null, 4)}</pre> */}
        
-       {this.state.recommendations.map( (rec, idx) => 
-            <div key={idx}>{rec.recTitle}</div>
-        )}
+            <div className="group-grid-container">
+                {this.state.recommendations.map( (rec, idx) => 
+                    <div key={idx} className={`group-grid-item group-item${(idx%8)+1}`} >
+                    {rec.recTitle}
+                    </div>
+                )}
+            </div>
         </div>
+        :
+        "Loading..."
         
         );
     }
