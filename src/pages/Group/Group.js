@@ -11,21 +11,35 @@ class Group extends Component {
     }
 
 
-  addRec = (e) => {
+    componentDidMount = () => {
+        let loadedRecs = this.props.groups[this.props.match.params.id].recs;
+
+        this.setState({
+           recommendations: loadedRecs
+        })
+    } 
+
+
+  addRec = async (e) => {
     e.preventDefault();
     
     let newRecCopy = this.state.newRec;
     newRecCopy.groupId = this.props.groups[this.props.match.params.id]._id;
     
     //TODO make this function
-    groupService.createRec(newRecCopy);
+    let rec = await groupService.createRec(newRecCopy);
+
+    // let recommendations = this.state.recommendations;
+    // recommendations.push(rec);
     
-    
-    this.setState(state => ({
+    // console.log(recommendations);
+
+    this.setState({
     //   need to "pass groups up"...but how
     //   groups: [...state.groups, state.newGroup],
-      newRec: { groupId: null, recTitle: '', recDetails: ''}
-    })) 
+        recommendations: rec,
+        newRec: { groupId: null, recTitle: '', recDetails: ''}
+    })
   };
 
   handleChange = (e) => {
@@ -69,6 +83,9 @@ class Group extends Component {
             </form>
         {/* <pre>{JSON.stringify(props.group, null, 4)}</pre> */}
        
+       {this.state.recommendations.map( (rec, idx) => 
+            <div key={idx}>{rec.recTitle}</div>
+        )}
         </div>
         
         );

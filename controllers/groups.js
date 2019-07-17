@@ -6,7 +6,6 @@ module.exports = {
     create,
     deleteGroup,
     updateGroup,
-    getRecs,
     createRec
 }
 
@@ -63,14 +62,6 @@ function updateGroup(req, res) {
             }
          })
         res.json()
-    })
-}
-
-function getRecs(req, res) {
-    Group.findById(req.body._id, function(err, group){
-        if (err) throw err;
-
-        res.json(group.recs);
     })
 }
 
