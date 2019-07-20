@@ -12,13 +12,14 @@
     align-items:center;
   }
 
-  /* .group-form-input{
-
+  .group-form-input{
+    margin: 20px;
   }
 
   .group-form-submit{
-      
-    } */
+    margin: 20px;
+    padding: -10px;
+    }
   
   .group-item1 {
     grid-row: span 1;

@@ -27,14 +27,19 @@ class App extends Component{
       };
 
   async componentDidMount() {
+    await this.refreshUsersAndGroups();
+  };
+  async refreshUsersAndGroups(otherStuff) {
     const groups = await groupService.index();
     const users = await userService.userIndex();
 
     this.setState({
+      ...otherStuff,
       groups,
       users
     });
-  };
+
+  }
   
   addGroup = (e, newGroup) => {
     e.preventDefault();
@@ -140,13 +145,16 @@ class App extends Component{
   
   handleLogout = () => {
     userService.logout();
-    this.setState({user: null});
+    this.setState({
+      user: null
+    });
   }
 
+  
   handleSignupOrLogin = () => {
-    this.setState({user: userService.getUser()});
+    this.refreshUsersAndGroups({user: userService.getUser()})
   }
-
+  
   render() {
     return (
       <div className="App">
