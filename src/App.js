@@ -26,50 +26,53 @@ class App extends Component{
         user: userService.getUser()
       };
 
-  async componentDidMount() {
-    await this.refreshUsersAndGroups();
+  componentDidMount() {
+      this.handleSignupOrLogin();
   };
-  async refreshUsersAndGroups(otherStuff) {
+
+  handleSignupOrLogin =  async () => {
     const groups = await groupService.index();
     const users = await userService.userIndex();
 
     this.setState({
-      ...otherStuff,
+      user: userService.getUser(),
       groups,
       users
     });
 
   }
   
-  addGroup = (e, newGroup) => {
+  addGroup = e => {
     e.preventDefault();
-    newGroup=this.state.newGroup
-    groupService.create(newGroup);
+    groupService.create(this.state.newGroup);
     this.setState(state => ({
       groups: [...state.groups, state.newGroup],
       newGroup: { name: '', description: '', members:[]}
     }))
-    
   };
 
   handleCreateGroup = e => {
-    let newGroup = {...this.state.newGroup};
+    let newGroupCopy = {...this.state.newGroup};
+    //userId corresponds to different users that can be selected via checkbox 
     const userId = e.target.dataset.userid;
     if (e.target.type !== "checkbox"){
-      newGroup[e.target.name] = e.target.value;
+      newGroupCopy[e.target.name] = e.target.value;
     } else {
-      if (e.target.checked && !newGroup.members.includes(userId)) {
-      newGroup.members.push(userId)
+      //users that are selected and not already in the groups members array
+      // get pushed to groups members array
+      if (e.target.checked && !newGroupCopy.members.includes(userId)) {
+      newGroupCopy.members.push(userId)
       console.log("userId",userId)
     } else {
+      //removes user from members array when checkbox is unchecked
       if (!e.target.checked) {
-        const index = newGroup.members.indexOf(userId);
-        newGroup.members.splice(index,1);
+        const index = newGroupCopy.members.indexOf(userId);
+        newGroupCopy.members.splice(index,1);
       }
     }
   }  
     this.setState({
-      newGroup
+      newGroup : newGroupCopy
     });
   };
 
@@ -146,13 +149,10 @@ class App extends Component{
   handleLogout = () => {
     userService.logout();
     this.setState({
-      user: null
+      user: null,
+      groups: null,
+      users: null
     });
-  }
-
-  
-  handleSignupOrLogin = () => {
-    this.refreshUsersAndGroups({user: userService.getUser()})
   }
   
   render() {
@@ -194,6 +194,7 @@ class App extends Component{
               <Group
               {...props}
               groups={this.state.groups}
+              handleSignupOrLogin={this.handleSignupOrLogin}
               />
             </div>
           }/>

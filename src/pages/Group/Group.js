@@ -12,7 +12,9 @@ class Group extends Component {
     }
 
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
+        // this.addRec();
+        await this.props.handleSignupOrLogin();
         let loadedRecs = this.props.groups[this.props.match.params.id].recs || null;
         // console.log(this.props.groups[this.props.match.params.id]);
         // groups array is empty
@@ -28,8 +30,10 @@ class Group extends Component {
     e.preventDefault();
     
     let newRecCopy = this.state.newRec;
+    // adds groupId to newRec so rec can be pushed into the correct group
+    // when it gets to the controller
     newRecCopy.groupId = this.props.groups[this.props.match.params.id]._id;
-    
+    // connects to fetch request that sends rec to controller
     let rec = await groupService.createRec(newRecCopy);
 
     this.setState({
@@ -38,8 +42,8 @@ class Group extends Component {
     })
   };
 
-  handleChange = (e) => {
-      let newRecCopy = this.state.newRec;
+  handleChange = e => {
+      let newRecCopy = {...this.state.newRec};
       newRecCopy[e.target.name] = e.target.value;
 
       this.setState({ newRec: newRecCopy });
