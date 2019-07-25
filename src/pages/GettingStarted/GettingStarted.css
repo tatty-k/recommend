@@ -1,62 +1,48 @@
-.gs-grid-container  {
+.gs-container  {
     column-count: 3;
     column-gap: 0rem;
   }
 
-.gs-grid-item  {
-    width: 1fr;
+.gs-item  {
     font-size: 1.3rem;
     font-weight: bold;
     padding: 1rem;
     margin: 0 0.2rem;
-    display: grid;
-    grid-auto-rows: 20%;
 }
-
-.gs-top {
-    grid-row: span 1;
-    justify-content: center;
-    }
-
-.gs-bottom {
-    background-color: grey;
-    grid-row: span 4;
-    justify-content: center;
-    }
   
 .gs-item1 {
     background-color: #1CFFD7;
-    height: 70vh;
+    height: 50vh;
     border-bottom: solid 0.4rem #484C58;
   }
 
 .gs-item2 {
     background-color: #42BBFF;
-    height: 20vh;
+    height: 40vh;
     border-bottom: solid 0.4rem #484C58;
   }
   
   .gs-item3 {
     background-color: #1AE9EB;
-    height: 20vh;
+    height: 40vh;
     border-bottom: solid 0.4rem #484C58;
   }
 
   .gs-item4 {
     background-color:#0278FF ;
-    height: 70vh;
+    height: 50vh;
     border-bottom: solid 0.4rem #484C58;
   }
 
   .gs-item5 {
     background-color: #23D5FF;
-    height: 70vh;
+    height: 50vh;
     border-bottom: solid 0.4rem #484C58;
   }
 
   .gs-item6 {
     background-color:#3DFF99 ;
-    height: 20vh;
+    height: 40vh;
     border-bottom: solid 0.4rem #484C58;
   }
 
