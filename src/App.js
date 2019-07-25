@@ -3,6 +3,7 @@ import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar.js';
 import Landing from './pages/Landing/Landing.js';
+import GettingStarted from './pages/GettingStarted/GettingStarted';
 import Profile from './pages/Profile/Profile.js';
 import Group from './pages/Group/Group.js';
 import LoginPage from './pages/LoginPage/LoginPage';
@@ -172,6 +173,11 @@ class App extends Component{
             >
               <Landing/>
             </div>
+          }/>
+          <Route exact path='/getting-started' render={ () => 
+              <div className="App-getting-started">
+              <GettingStarted/>
+              </div>
           }/>
           <Route exact path='/profile' render={ () => (
             this.state.groups ? 
