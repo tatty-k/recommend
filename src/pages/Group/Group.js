@@ -91,6 +91,7 @@ class Group extends Component {
                             </div>
                             <div className="form-group col-sm-12 text-center">
                                 <input
+                                    disabled={!this.state.newRec.recTitle || !this.state.newRec.recDetails}
                                     className="form-control"
                                     onClick={this.addRec}
                                     type="submit" 

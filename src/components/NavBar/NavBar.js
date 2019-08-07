@@ -67,6 +67,7 @@ const NavBar = (props) => {
                           ))} 
                         <div>
                           <input
+                          disabled={!props.newGroup.name || !props.newGroup.description || !props.newGroup.members }
                           onClick={props.addGroup}
                           type="submit" 
                           value="Add Group"

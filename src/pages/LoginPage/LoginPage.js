@@ -46,7 +46,12 @@ class LoginPage extends Component {
           </div>
           <div className="form-group">
             <div className="col-sm-12 text-center">
-              <button className="btn btn-primary">Log In</button>&nbsp;&nbsp;&nbsp;
+              <button 
+                className="btn btn-primary"
+                disabled={!this.state.email || !this.state.pw}
+                >
+                  Log In
+                  </button>&nbsp;&nbsp;&nbsp;
               <Link to='/' className="btn btn-secondary">Cancel</Link>
             </div>
           </div>
