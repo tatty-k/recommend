@@ -35,11 +35,11 @@ class Group extends Component {
 
     this.setState({
         recommendations: rec,
-        newRec: { groupId: null, recTitle: 'recommend something!', recDetails: ''}
+        newRec: { groupId: null, recTitle: '', recDetails: ''}
     })
     
     document.getElementById("showRec").style.display = "none";
-    
+
   };
 
   handleChange = e => {
@@ -63,9 +63,9 @@ class Group extends Component {
             this.state.recommendations ?
             <div>
                 <div> 
-                <div onClick={this.showHideRecForm } id="addRec">ADD RECOMMENDATION</div>  
+                <div onClick={this.showHideRecForm} id="addRec">ADD RECOMMENDATION</div>  
                     <div> 
-                        <form id="showRec" className="form-horizontal" onSubmit={this.addRec}>
+                        <form style = {{display:"none"}} id="showRec" className="form-horizontal" onSubmit={this.addRec}>
                             <div className="form-group col-sm-12">
                                 <input
                                     className="form-control"

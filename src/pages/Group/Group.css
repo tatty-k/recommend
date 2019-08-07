@@ -5,36 +5,16 @@
     grid-template-columns: repeat(auto-fill);   
   }
 
-  .group-form {
-    height: 60px;  
-    display: flex; 
-    justify-content: space-around;
-    align-items:center;
-  }
-
-  .dropdown-toggle {
-    height: 60px;
-    background-color: white;
-    border-bottom: solid 10px #484C58;
-    justify-items: center;
-    text-align: center;
-  }
-
-  .dropdown-menu {
-    width: 100%;
-    /* without this form dissapears when clicked. why */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   #addRec{
     color: white;
     font-size: 1.5rem;
     margin: 1rem;
   }
 
-  
+  #addRec:hover{
+    color: black;
+  }
+
   .group-item1 {
     grid-row: span 1;
     background-color: #00FD78;
