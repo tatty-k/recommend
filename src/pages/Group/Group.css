@@ -12,14 +12,28 @@
     align-items:center;
   }
 
-  .group-form-input{
-    margin: 20px;
+  .dropdown-toggle {
+    height: 60px;
+    background-color: white;
+    border-bottom: solid 10px #484C58;
+    justify-items: center;
+    text-align: center;
   }
 
-  .group-form-submit{
-    margin: 20px;
-    padding: -10px;
-    }
+  .dropdown-menu {
+    width: 100%;
+    /* without this form dissapears when clicked. why */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #addRec{
+    color: white;
+    font-size: 1.5rem;
+    margin: 1rem;
+  }
+
   
   .group-item1 {
     grid-row: span 1;

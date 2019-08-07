@@ -16,9 +16,6 @@ class Group extends Component {
         // this.addRec();
         await this.props.handleSignupOrLogin();
         let loadedRecs = this.props.groups[this.props.match.params.id].recs || null;
-        // console.log(this.props.groups[this.props.match.params.id]);
-        // groups array is empty
-        // try componentDidUpdate with guard operator 
 
         this.setState({
            recommendations: loadedRecs
@@ -40,6 +37,9 @@ class Group extends Component {
         recommendations: rec,
         newRec: { groupId: null, recTitle: 'recommend something!', recDetails: ''}
     })
+    
+    document.getElementById("showRec").style.display = "none";
+    
   };
 
   handleChange = e => {
@@ -49,41 +49,59 @@ class Group extends Component {
       this.setState({ newRec: newRecCopy });
   };
 
+    showHideRecForm = () => {
+       let x = document.getElementById("showRec");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
     render() { 
         return ( 
             this.state.recommendations ?
             <div>
-            <form className="group-form form-inline" onSubmit={this.addRec}>
-                <label className="form-group mb-2">
-                    {/* <div>RECOMMENDATION TITLE</div> */}
-                    <input
-                        className="group-form-input"
-                        name="recTitle"
-                        type="text"
-                        onChange={ this.handleChange }
-                        value={this.state.newRec.recTitle}
-                        required
-                    />
-                    </label>
-                    {/* <label>
-                    <div>RECOMMENDATION DETAILS</div>
-                    <input
-                        name="recDetails"
-                        type="text"
-                        onChange={this.handleChange}
-                        value={this.state.newRec.recDetails}
-                        required
-                    />
-                    </label> */}
-                    <input
-                        className="group-form-submit"
-                        onClick={this.addRec}
-                        type="submit" 
-                        value="ADD"
-                        className="btn btn-light"
-                        data-dismiss="modal"
-                    />
-            </form>
+                <div> 
+                <div onClick={this.showHideRecForm } id="addRec">ADD RECOMMENDATION</div>  
+                    <div> 
+                        <form id="showRec" className="form-horizontal" onSubmit={this.addRec}>
+                            <div className="form-group col-sm-12">
+                                <input
+                                    className="form-control"
+                                    name="recTitle"
+                                    type="text"
+                                    onChange={ this.handleChange }
+                                    value={this.state.newRec.recTitle}
+                                    required
+                                    placeholder="What do you recommend?"
+                                />
+                            </div>
+                            <div className="form-group col-sm-12">
+                                <input
+                                    className="form-control"
+                                    name="recDetails"
+                                    type="text"
+                                    onChange={this.handleChange}
+                                    value={this.state.newRec.recDetails}
+                                    required
+                                    placeholder="Add a brief description"
+
+                                />
+                            </div>
+                            <div className="form-group col-sm-12 text-center">
+                                <input
+                                    className="form-control"
+                                    onClick={this.addRec}
+                                    type="submit" 
+                                    value="ADD"
+                                    className="btn btn-light"
+                                    data-dismiss="modal"
+                                />
+                            </div>
+                        </form>
+                    </div>
+                </div>
         {/* <pre>{JSON.stringify(props.group, null, 4)}</pre> */}
        
             <div className="group-grid-container">
@@ -100,5 +118,4 @@ class Group extends Component {
         );
     }
 }
- 
 export default Group;

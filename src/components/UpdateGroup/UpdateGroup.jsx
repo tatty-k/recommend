@@ -1,33 +1,34 @@
 import React from 'react';
+import './UpdateGroup.css'
 
 function UpdateGroup(props){
-    console.log(props.groups)
-    console.log(props.match.params.id)
     return (              
-        
-        <div>
-
-            <form onSubmit={(e) => props.updateGroup(e, props.idx)}>
-            <label>
-                <div>GROUP NAME</div>
-                <input
-                    name="name"
-                    type="text"
-                    onChange={(e) => props.handleUpdateGroup(e, props.match.params.id) }
-                    value={props.groups[props.match.params.id].name}
-                    required
-                />
-                </label>
-                <label>
-                <div>DESCRIPTION</div>
-                <input
-                    name="description"
-                    type="text"
-                    onChange={(e) => props.handleUpdateGroup(e, props.match.params.id) }
-                    value={props.groups[props.match.params.id].description}
-                    required
-                />
-                </label>
+        <div className='UpdateGroup'>
+            <header className='header-footer'>Edit Group</header>
+            <form d onSubmit={(e) => props.updateGroup(e, props.idx)}>
+            
+                <div className="form-group">
+                    <label>GROUP NAME</label>
+                    <input
+                        name="name"
+                        type="text"
+                        onChange={(e) => props.handleUpdateGroup(e, props.match.params.id) }
+                        value={props.groups[props.match.params.id].name}
+                        required
+                        className="form-control"
+                    />
+                </div>
+                <div className="form-group">
+                    <label>DESCRIPTION</label>
+                    <input
+                        name="description"
+                        type="text"
+                        onChange={(e) => props.handleUpdateGroup(e, props.match.params.id) }
+                        value={props.groups[props.match.params.id].description}
+                        required
+                        className="form-control"
+                    />
+                </div>
                 { props.users.map((user, idx) => (
                 <label key={idx}>
                 <div>{user.name}</div>  
@@ -44,7 +45,7 @@ function UpdateGroup(props){
                 <input
                     onClick={(e) => props.updateGroup(e, props.match.params.id)}
                     type="submit" 
-                    value="Update Group"
+                    value="Submit"
                     className="btn btn-primary"
                     data-dismiss="modal"
                 />

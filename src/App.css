@@ -7,8 +7,8 @@
 }
 
 .App-landing{
-  background-image: url("./images/LandingBackground.png");
-  height: 100vh;
+  background: url("./images/LandingBackground.png")
+  no-repeat center right fixed;
   background-size: cover;
 }
 
@@ -27,4 +27,16 @@
 
 }
 
+.header-footer {
+  height: 50px;
+  padding: 10px;
+  margin: 1.8rem 0;
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+}
+
+.btn-primary, .btn-secondary{
+  margin: 1.5rem;
+}
 
