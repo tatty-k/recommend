@@ -45,6 +45,12 @@
     color: black;
   }
 
+  .profile-grid-item:hover{
+    color: white;
+    text-decoration: none;
+
+  }
+
   .profile-group-name{
     grid-row: span 2;
   }

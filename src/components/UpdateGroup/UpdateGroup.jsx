@@ -5,7 +5,7 @@ function UpdateGroup(props){
     return (              
         <div className='UpdateGroup'>
             <header className='header-footer'>Edit Group</header>
-            <form d onSubmit={(e) => props.updateGroup(e, props.idx)}>
+            <form onSubmit={(e) => props.updateGroup(e, props.idx)}>
             
                 <div className="form-group">
                     <label>GROUP NAME</label>

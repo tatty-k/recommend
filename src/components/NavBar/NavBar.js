@@ -32,31 +32,34 @@ const NavBar = (props) => {
 
                   {/* Create Group form */}
 
-                      <form onSubmit={props.addGroup}>
-                        <label>
-                          <div>GROUP NAME</div>
-                          <input
-                            name="name"
-                            type="text"
-                            onChange={props.triggerCreateGroup}
-                            value={props.newGroup.name}
-                            required
-                          />
-                          </label>
-                          <label>
-                          <div>DESCRIPTION</div>
-                          <input
-                            name="description"
-                            type="text"
-                            onChange={props.triggerCreateGroup}
-                            value={props.newGroup.description}
-                            required
-                          />
-                          </label>
+                      <form className="form-horizontal" onSubmit={props.addGroup}>
+                          <div className="form-group">
+                            <input
+                              name="name"
+                              type="text"
+                              onChange={props.triggerCreateGroup}
+                              value={props.newGroup.name}
+                              required
+                              className="form-control"
+                              placeholder="Name your group"
+                            />
+                          </div>
+                          <div className="form-group">
+                            <input
+                              name="description"
+                              type="text"
+                              onChange={props.triggerCreateGroup}
+                              value={props.newGroup.description}
+                              required
+                              className="form-control"
+                              placeholder="Describe your group"
+                            />
+                          </div>
                           { props.users.map((user, idx) => (
                           <label key={idx}>
                           <div>{user.name}</div>  
                           <input 
+                            className="m-4"
                             name={user.email}
                             type="checkbox"
                             onChange={props.triggerCreateGroup}
@@ -71,15 +74,12 @@ const NavBar = (props) => {
                           onClick={props.addGroup}
                           type="submit" 
                           value="Add Group"
-                          className="btn btn-primary"
+                          className="btn btn-primary mt-1"
                           data-dismiss="modal"
                           />
                         </div>
                         </form>
                         {/* <pre>{JSON.stringify(props.newGroup, null, 4)}</pre> */}
-                    </div>
-                    <div className="modal-footer">
-                      <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>

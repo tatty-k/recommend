@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar.js';
 import Landing from './pages/Landing/Landing.js';
 import GettingStarted from './pages/GettingStarted/GettingStarted';
+import GettingStartedSlides from './pages/GettingStartedSlides/GettingStartedSlides';
 import Profile from './pages/Profile/Profile.js';
 import Group from './pages/Group/Group.js';
 import LoginPage from './pages/LoginPage/LoginPage';
