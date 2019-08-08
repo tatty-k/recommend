@@ -10,6 +10,7 @@ const NavBar = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="navbar-nav collapse navbar-collapse" id="navbarNav">
+            <Link to='getting-started' className="nav-item nav-link">GETTING STARTED</Link>
             <Link className="nav-item nav-link" to={'/profile'}>PROFILE</Link>
             <Link className="nav-item nav-link" to={'/'} onClick={props.handleLogout}>LOGOUT</Link> 
               

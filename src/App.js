@@ -50,6 +50,7 @@ class App extends Component{
       groups: [...state.groups, state.newGroup],
       newGroup: { name: '', description: '', members:[]}
     }))
+    this.props.history.push('/profile')
   };
 
   handleCreateGroup = e => {
