@@ -1,20 +1,37 @@
-## Recommend
+## **Recommend**
 
 A social app for sharing your favorite restaurants, books, movies etc. with friends.
 
-## Technology Used
+## **Technology Used**
 
 MongoDB, Mongoose, Express, React, Node.js and JavaScript 
 
-## Getting started
+## **Getting started**
 
-## Unsolved Problems
+https://recommend-react.herokuapp.com/
 
-## Future Enhancements
+### Instructions found on landing page walk user through app
 
+![alt text](./src/images/landing.png)
 
+### Users log in with JWT tolken-based authentication
 
+![alt text](./src/images/login.png)
 
+### Users can create groups based on their interest
+
+![alt text](./src/images/groups.png)
+
+### Within groups users can create recommendations to share with others
+
+![alt text](./src/images/recs.png)
+
+## **Future Enhancements**
+Incorporate an API that sends invites friends of users to join a group
+
+Incorporate an API that allows users to recieve a text when new recommendations are added to their group
+
+## **Information About React**
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
